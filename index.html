@@ -65,7 +65,7 @@
   .btn:hover{border-color:var(--signal)}
   .btn.solid:hover{background:var(--signal);color:var(--signal-ink)}
 
-  .console{background:var(--console);color:var(--console-ink);border-radius:10px;padding:20px 22px 22px;font-family:"IBM Plex Mono",monospace;font-size:13.5px;line-height:1.75;box-shadow:0 30px 60px -30px rgba(16,26,46,.55)}
+  .console{background:var(--console);color:var(--console-ink);border-radius:10px;padding:20px 22px 58px;font-family:"IBM Plex Mono",monospace;font-size:13.5px;line-height:1.75;box-shadow:0 30px 60px -30px rgba(16,26,46,.55)}
   .console .cap{font-family:"IBM Plex Sans",sans-serif;font-size:13px;color:var(--console-dim);margin:0 0 12px;line-height:1.4}
   .hero > *, .sec-head > *, .timeline > li > *{min-width:0}
   .console ol{list-style:none;margin:0;padding:0;min-height:15.8em;overflow-x:auto}
@@ -74,6 +74,19 @@
   .console .ok{color:var(--console-ok)}
   .bar{height:4px;background:#24304a;border-radius:2px;margin-top:14px;overflow:hidden}
   .bar i{display:block;height:100%;width:0;background:var(--console-ok);transition:width .35s ease}
+  .stage{position:relative}
+  .console ol{min-height:13.5em}
+  .ui{position:relative;margin:-34px 0 0 auto;width:82%}
+  .ui-cap{font-size:13px;color:var(--slate);margin:0 0 8px;line-height:1.4;text-align:right;position:absolute;right:0;bottom:calc(100% + 6px);display:none}
+  .ui-card{background:var(--paper);color:var(--ink);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;box-shadow:0 18px 40px -20px rgba(16,26,46,.45)}
+  .ui-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;font-size:15.5px}
+  .chip{font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--fog);color:var(--slate);white-space:nowrap}
+  .chip[data-s="running"]{background:#fff3d6;color:#8a5a00}
+  .chip[data-s="done"]{background:#d9f3ef;color:#0b6b66}
+  .ui-bar{height:8px;border-radius:4px;background:var(--fog);overflow:hidden}
+  .ui-bar i{display:block;height:100%;width:0;background:var(--signal);transition:width .35s ease}
+  .ui-row{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:14px;color:var(--slate)}
+  .ui-note{font-size:13px;color:var(--slate);margin:10px 2px 0;line-height:1.4}
   .js .console li{opacity:0}
   .js .console li.on{opacity:1;transition:opacity .25s ease}
 
@@ -134,11 +147,12 @@
     .shots figure:first-child{grid-row:auto}
     .top nav a{display:none}
     .console{font-size:12.5px}
+    .ui{width:100%;margin-top:14px}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .js .console li{opacity:1}
-    .bar i{transition:none}
+    .bar i, .ui-bar i{transition:none}
   }
 </style>
 </head>
@@ -170,20 +184,36 @@
     </div>
   </div>
 
+  <div class="stage">
   <div class="console" aria-label="Esempio di job seguito in tempo reale">
-    <p class="cap" lang="it">Il tipo di servizio che progetto: un job di addestramento lanciato via API e seguito in tempo reale con Server-Sent Events.</p>
-    <p class="cap" lang="en">The kind of service I design: a training job started through an API and followed live with Server-Sent Events.</p>
+    <p class="cap" lang="it">Back-end: un job di addestramento lanciato via API, che invia lo stato in tempo reale con Server-Sent Events.</p>
+    <p class="cap" lang="en">Back-end: a training job started through an API, streaming its status live with Server-Sent Events.</p>
     <ol id="log">
-      <li><span class="dim">$</span> POST /tuning-jobs</li>
-      <li><span class="ok">202 Accepted</span>  <span class="dim">job_id=7f3a</span></li>
-      <li><span class="dim">event:</span> state     queued</li>
-      <li><span class="dim">event:</span> state     running</li>
-      <li><span class="dim">event:</span> progress  trial 08/40  val_loss 0.412</li>
-      <li><span class="dim">event:</span> progress  trial 21/40  val_loss 0.267</li>
-      <li><span class="dim">event:</span> progress  trial 40/40  val_loss 0.198</li>
-      <li><span class="dim">event:</span> state     <span class="ok">completed</span>  best=trial_33</li>
+      <li data-s="new"><span class="dim">$</span> POST /jobs</li>
+      <li data-s="new"><span class="ok">202 Accepted</span>  <span class="dim">job_id=7f3a</span></li>
+      <li data-s="queued"><span class="dim">event:</span> state     queued</li>
+      <li data-s="running" data-t="0"><span class="dim">event:</span> state     running</li>
+      <li data-s="running" data-t="8" data-l="0.412"><span class="dim">event:</span> progress  trial 08/40  val_loss 0.412</li>
+      <li data-s="running" data-t="21" data-l="0.267"><span class="dim">event:</span> progress  trial 21/40  val_loss 0.267</li>
+      <li data-s="running" data-t="40" data-l="0.198"><span class="dim">event:</span> progress  trial 40/40  val_loss 0.198</li>
+      <li data-s="done" data-t="40" data-l="0.198"><span class="dim">event:</span> state     <span class="ok">completed</span>  best=trial_33</li>
     </ol>
-    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  </div>
+  <div class="ui" aria-live="polite">
+    <div class="ui-card">
+      <div class="ui-head">
+        <b><span lang="it">Addestramento modello</span><span lang="en">Model training</span></b>
+        <span class="chip" id="chip" data-s="new"></span>
+      </div>
+      <div class="ui-bar"><i id="uibar"></i></div>
+      <div class="ui-row">
+        <span id="trial"></span>
+        <span id="best"></span>
+      </div>
+    </div>
+    <p class="ui-note" lang="it">Front-end: lo stesso job, come lo vede chi usa il portale.</p>
+    <p class="ui-note" lang="en">Front-end: the same job, as the portal's user sees it.</p>
+  </div>
   </div>
 </div>
 
@@ -356,13 +386,30 @@
   setLang(start);
   sw.addEventListener('click', () => setLang(root.classList.contains('lang-it') ? 'en' : 'it'));
 
-  // job log: one orchestrated reveal on load
-  const lines = [...document.querySelectorAll('#log li')], bar = document.getElementById('bar');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce){ lines.forEach(l=>l.classList.add('on')); bar.style.width='100%'; }
-  else {
-    lines.forEach((l,i)=>setTimeout(()=>{ l.classList.add('on'); bar.style.width = Math.round((i+1)/lines.length*100)+'%'; }, 400 + i*520));
+  // job log + UI card: one orchestrated sequence on load
+  const lines = [...document.querySelectorAll('#log li')];
+  const chip = document.getElementById('chip'), uibar = document.getElementById('uibar');
+  const trialEl = document.getElementById('trial'), bestEl = document.getElementById('best');
+  const T = { it:{new:'In avvio',queued:'In coda',running:'In corso',done:'Completato',trial:(n)=>'Prova '+n+' di 40',best:(l)=>'Miglior errore '+l},
+              en:{new:'Starting',queued:'Queued',running:'Running',done:'Completed',trial:(n)=>'Trial '+n+' of 40',best:(l)=>'Best loss '+l} };
+  let cur = {s:'new',t:0,l:null};
+  function paint(){
+    const t = T[root.classList.contains('lang-en')?'en':'it'];
+    chip.dataset.s = cur.s; chip.textContent = t[cur.s];
+    uibar.style.width = Math.round(cur.t/40*100)+'%';
+    trialEl.textContent = t.trial(cur.t);
+    bestEl.textContent = cur.l ? t.best(cur.l) : '';
   }
+  function apply(li){
+    li.classList.add('on');
+    cur = {s:li.dataset.s, t: li.dataset.t!==undefined ? +li.dataset.t : cur.t, l: li.dataset.l || cur.l};
+    paint();
+  }
+  sw.addEventListener('click', paint);
+  paint();
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){ lines.forEach(apply); }
+  else { lines.forEach((l,i)=>setTimeout(()=>apply(l), 500 + i*600)); }
 </script>
 </body>
 </html>
