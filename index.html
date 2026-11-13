@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="it" class="lang-it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filippo Mugnai – Software Engineer</title>
+<meta name="description" content="Software Engineer a Roma: servizi back-end in Python e Java per difesa, aerospazio e spazio.">
+<meta property="og:title" content="Filippo Mugnai – Software Engineer">
+<meta property="og:description" content="Servizi back-end in Python e Java per difesa, aerospazio e spazio.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://filo007.github.io/">
+<meta property="og:image" content="https://filo007.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Filippo Mugnai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fog:#eef1f5;        /* page */
+    --paper:#ffffff;      /* raised surfaces */
+    --ink:#152039;        /* text, navy */
+    --slate:#4b5872;      /* secondary text */
+    --rule:#cfd6e0;       /* hairlines */
+    --signal:#0b7a75;     /* accent, instrument teal */
+    --signal-ink:#ffffff;
+    --console:#101a2e;    /* job panel */
+    --console-ink:#d7e0ee;
+    --console-dim:#7f8ba3;
+    --console-ok:#5fd3c6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --fog:#0f1626; --paper:#162036; --ink:#e7ecf4; --slate:#a2adc2; --rule:#2a3653;
+      --signal:#4fc4bb; --signal-ink:#0f1626; --console:#0a1120; --console-ink:#d7e0ee; --console-dim:#7f8ba3; --console-ok:#5fd3c6;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--fog);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-underline-offset:3px}
+  :focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* language switch */
+  .lang-it [lang="en"], .lang-en [lang="it"]{display:none !important}
+
+  header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+  .mark{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:600;font-size:18px;text-decoration:none}
+  .top nav{display:flex;gap:24px;align-items:center}
+  .top nav a{text-decoration:none;color:var(--slate);font-size:15px}
+  .top nav a:hover{color:var(--ink)}
+  .switch{font:500 14px "IBM Plex Sans",sans-serif;background:transparent;border:1px solid var(--rule);color:var(--ink);border-radius:6px;padding:5px 10px;cursor:pointer}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;padding:56px 0 88px}
+  h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:clamp(46px,7.4vw,92px);line-height:.95;letter-spacing:-.01em;margin:0 0 26px}
+  .intro{font-size:clamp(18px,2.1vw,21px);color:var(--slate);max-width:30em;margin:0 0 30px}
+  .actions{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-block;text-decoration:none;font-weight:600;font-size:15.5px;padding:12px 20px;border-radius:6px;border:1px solid var(--ink)}
+  .btn.solid{background:var(--ink);color:var(--fog)}
+  .btn.line{background:transparent}
+  .btn:hover{border-color:var(--signal)}
+  .btn.solid:hover{background:var(--signal);color:var(--signal-ink)}
+
+  .console{background:var(--console);color:var(--console-ink);border-radius:10px;padding:20px 22px 22px;font-family:"IBM Plex Mono",monospace;font-size:13.5px;line-height:1.75;box-shadow:0 30px 60px -30px rgba(16,26,46,.55)}
+  .console .cap{font-family:"IBM Plex Sans",sans-serif;font-size:13px;color:var(--console-dim);margin:0 0 12px;line-height:1.4}
+  .hero > *, .sec-head > *, .timeline > li > *{min-width:0}
+  .console ol{list-style:none;margin:0;padding:0;min-height:15.8em;overflow-x:auto}
+  .console li{white-space:pre;overflow:hidden;text-overflow:ellipsis}
+  .console .dim{color:var(--console-dim)}
+  .console .ok{color:var(--console-ok)}
+  .bar{height:4px;background:#24304a;border-radius:2px;margin-top:14px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--console-ok);transition:width .35s ease}
+  .js .console li{opacity:0}
+  .js .console li.on{opacity:1;transition:opacity .25s ease}
+
+  /* sections */
+  section{padding:72px 0;border-top:1px solid var(--rule)}
+  .sec-head{display:grid;grid-template-columns:260px 1fr;gap:40px}
+  h2{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:600;font-size:34px;line-height:1.1;margin:0}
+  .sec-head p.note{color:var(--slate);margin:10px 0 0;font-size:15px}
+
+  /* timeline */
+  .timeline{list-style:none;margin:0;padding:0}
+  .timeline > li{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:0 0 34px;position:relative}
+  .timeline > li:last-child{padding-bottom:0}
+  .when{font-size:15px;color:var(--slate);padding-top:3px}
+  .what{border-left:2px solid var(--rule);padding-left:24px;position:relative}
+  .what::before{content:"";position:absolute;left:-7px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--fog);border:2px solid var(--signal)}
+  .timeline > li.now .what::before{background:var(--signal)}
+  .what h3{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:600;font-size:23px;line-height:1.2;margin:0 0 2px}
+  .org{color:var(--slate);font-size:15px;margin:0 0 10px}
+  .what ul{margin:0;padding-left:18px}
+  .what li{margin-bottom:5px}
+  .stack{font-size:14.5px;color:var(--slate);margin:10px 0 0}
+
+  /* project */
+  .project h3{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,40px);line-height:1.05;margin:0 0 12px}
+  .project .lede{font-size:19px;color:var(--slate);max-width:34em;margin:0 0 24px}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin:0 0 28px;padding:0;list-style:none}
+  .facts li{border-top:2px solid var(--ink);padding-top:12px}
+  .facts b{display:block;font-family:"IBM Plex Sans Condensed",sans-serif;font-size:19px;font-weight:600;margin-bottom:4px}
+  .facts span{color:var(--slate);font-size:15.5px}
+  .shots{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin:0 0 20px}
+  .shots figure{margin:0;background:var(--paper);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+  .shots img{display:block;width:100%;height:100%;object-fit:cover}
+  .shots figure:first-child{grid-row:span 2}
+
+  /* skills */
+  .skills{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .skills h3{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:600;font-size:20px;margin:0 0 8px}
+  .skills p{margin:0;color:var(--slate)}
+  .certs{list-style:none;margin:40px 0 0;padding:0}
+  .certs li{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-top:1px solid var(--rule)}
+  .certs li:last-child{border-bottom:1px solid var(--rule)}
+  .certs span{color:var(--slate);white-space:nowrap}
+  .pending{color:var(--signal);font-weight:500}
+
+  /* contact */
+  .contact{padding:80px 0 96px}
+  .contact h2{font-size:clamp(34px,5vw,56px);margin-bottom:16px}
+  .contact p{color:var(--slate);max-width:32em;margin:0 0 28px;font-size:18px}
+  footer{color:var(--slate);font-size:14px;padding:0 0 40px}
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;gap:40px;padding:28px 0 64px}
+    .sec-head{grid-template-columns:1fr;gap:28px}
+    .timeline > li{grid-template-columns:1fr;gap:6px}
+    .facts,.skills{grid-template-columns:1fr;gap:20px}
+    .shots{grid-template-columns:1fr}
+    .shots figure:first-child{grid-row:auto}
+    .top nav a{display:none}
+    .console{font-size:12.5px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .console li{opacity:1}
+    .bar i{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="mark" href="#">Filippo Mugnai</a>
+  <nav aria-label="Sezioni">
+    <a href="#percorso"><span lang="it">Percorso</span><span lang="en">Experience</span></a>
+    <a href="#progetto"><span lang="it">Progetto</span><span lang="en">Project</span></a>
+    <a href="#competenze"><span lang="it">Competenze</span><span lang="en">Skills</span></a>
+    <a href="#contatti"><span lang="it">Contatti</span><span lang="en">Contact</span></a>
+    <button class="switch" id="switch" type="button" aria-label="Switch language">EN</button>
+  </nav>
+</header>
+
+<main>
+<div class="hero">
+  <div>
+    <h1>Filippo<br>Mugnai</h1>
+    <p class="intro" lang="it">Software engineer a Roma. Costruisco servizi back-end in Python e Java per sistemi dove un errore costa caro: difesa, aerospazio e spazio.</p>
+    <p class="intro" lang="en">Software engineer in Rome. I build Python and Java back-end services for systems where mistakes are expensive: defence, aerospace and space.</p>
+    <div class="actions">
+      <a class="btn solid" href="CV-Filippo-Mugnai-IT.pdf" lang="it" download>Scarica il CV</a>
+      <a class="btn solid" href="CV-Filippo-Mugnai-EN.pdf" lang="en" download>Download CV</a>
+      <a class="btn line" href="https://www.linkedin.com/in/filippo-mugnai" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn line" href="https://github.com/Filo007" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+
+  <div class="console" aria-label="Esempio di job seguito in tempo reale">
+    <p class="cap" lang="it">Il tipo di servizio che progetto: un job di addestramento lanciato via API e seguito in tempo reale con Server-Sent Events.</p>
+    <p class="cap" lang="en">The kind of service I design: a training job started through an API and followed live with Server-Sent Events.</p>
+    <ol id="log">
+      <li><span class="dim">$</span> POST /tuning-jobs</li>
+      <li><span class="ok">202 Accepted</span>  <span class="dim">job_id=7f3a</span></li>
+      <li><span class="dim">event:</span> state     queued</li>
+      <li><span class="dim">event:</span> state     running</li>
+      <li><span class="dim">event:</span> progress  trial 08/40  val_loss 0.412</li>
+      <li><span class="dim">event:</span> progress  trial 21/40  val_loss 0.267</li>
+      <li><span class="dim">event:</span> progress  trial 40/40  val_loss 0.198</li>
+      <li><span class="dim">event:</span> state     <span class="ok">completed</span>  best=trial_33</li>
+    </ol>
+    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  </div>
+</div>
+
+<section id="percorso">
+  <div class="sec-head">
+    <div>
+      <h2><span lang="it">Percorso</span><span lang="en">Experience</span></h2>
+      <p class="note" lang="it">Dal più recente. I clienti sono descritti senza dettagli riservati.</p>
+      <p class="note" lang="en">Most recent first. Client work is described without confidential details.</p>
+    </div>
+    <ol class="timeline">
+      <li class="now">
+        <div class="when"><span lang="it">Set 2026 – oggi</span><span lang="en">Sep 2026 – now</span></div>
+        <div class="what">
+          <h3 lang="it">Verifica indipendente del software per un programma spaziale</h3>
+          <h3 lang="en">Independent software verification for a space programme</h3>
+          <p class="org">aizoOn Technology Consulting</p>
+          <ul lang="it">
+            <li>Verifica e validazione indipendente (ISVV): revisione di codice, requisiti e test secondo gli standard del settore spaziale.</li>
+          </ul>
+          <ul lang="en">
+            <li>Independent verification and validation (ISVV): reviewing code, requirements and tests against space-industry standards.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="when"><span lang="it">Mag – Ago 2026</span><span lang="en">May – Aug 2026</span></div>
+        <div class="what">
+          <h3 lang="it">Microservizi per pipeline di machine learning</h3>
+          <h3 lang="en">Microservices for machine-learning pipelines</h3>
+          <p class="org" lang="it">aizoOn Technology Consulting, programma aerospaziale internazionale</p>
+          <p class="org" lang="en">aizoOn Technology Consulting, international aerospace programme</p>
+          <ul lang="it">
+            <li>Migrazione di un monolite Python di circa 28.000 righe verso microservizi FastAPI.</li>
+            <li>Progettato da zero un microservizio per l'hyperparameter tuning di reti neurali, portato in produzione.</li>
+            <li>Integrazione del portale Vue.js con il nuovo back-end; individuato e corretto un difetto di sicurezza nell'autenticazione.</li>
+          </ul>
+          <ul lang="en">
+            <li>Migrated a Python monolith of about 28,000 lines to FastAPI microservices.</li>
+            <li>Designed from scratch a microservice for neural-network hyperparameter tuning, released to production.</li>
+            <li>Integrated the Vue.js portal with the new back-end; found and fixed a security flaw in authentication.</li>
+          </ul>
+          <p class="stack">Python, FastAPI, SQLAlchemy, PostgreSQL, Keycloak, Vue.js, TypeScript, Docker, GitLab CI</p>
+        </div>
+      </li>
+      <li>
+        <div class="when"><span lang="it">2024 – 2026</span><span lang="en">2024 – 2026</span></div>
+        <div class="what">
+          <h3 lang="it">Ministero della Difesa, sanità e pagamenti pubblici</h3>
+          <h3 lang="en">Ministry of Defence, healthcare and public payments</h3>
+          <p class="org">Almaviva</p>
+          <ul lang="it">
+            <li>Componenti CMS per il portale istituzionale del Ministero della Difesa.</li>
+            <li>Test e validazione su applicativi sanitari e sistemi collegati a PagoPA; query su Oracle, interfacce in Figma.</li>
+          </ul>
+          <ul lang="en">
+            <li>CMS components for the Italian Ministry of Defence institutional portal.</li>
+            <li>Testing and validation of healthcare applications and PagoPA-related systems; Oracle queries, UI design in Figma.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="when">2023 – 2024</div>
+        <div class="what">
+          <h3 lang="it">Simulazione di scenari navali per la Difesa</h3>
+          <h3 lang="en">Naval scenario simulation for Defence</h3>
+          <p class="org" lang="it">Almaviva, divisione Difesa e Sicurezza</p>
+          <p class="org" lang="en">Almaviva, Defence &amp; Security division</p>
+          <ul lang="it">
+            <li>Applicazioni Java per progettare e simulare scenari in ambito navale.</li>
+            <li>Back-end Spring Boot con persistenza Hibernate su Oracle e MySQL.</li>
+          </ul>
+          <ul lang="en">
+            <li>Java applications to design and simulate naval scenarios.</li>
+            <li>Spring Boot back-end with Hibernate persistence on Oracle and MySQL.</li>
+          </ul>
+          <p class="stack">Java, Spring Boot, Hibernate, JavaFX, Oracle, MySQL</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="progetto" class="project">
+  <div class="sec-head">
+    <div>
+      <h2><span lang="it">Progetto personale</span><span lang="en">Personal project</span></h2>
+    </div>
+    <div>
+      <h3 lang="it">Il gestionale di un personal trainer</h3>
+      <h3 lang="en">A personal trainer's management app</h3>
+      <p class="lede" lang="it">App desktop costruita per mio fratello, personal trainer: segue i suoi atleti, i loro esercizi e i piani di allenamento mese per mese.</p>
+      <p class="lede" lang="en">A desktop app built for my brother, a personal trainer: it tracks his athletes, their exercises and month-by-month training plans.</p>
+
+      <div class="shots">
+        <figure><img src="img/app-1.png" alt="Dashboard dell'app" onerror="this.parentElement.remove()"></figure>
+        <figure><img src="img/app-2.png" alt="Scheda atleta" onerror="this.parentElement.remove()"></figure>
+        <figure><img src="img/app-3.png" alt="Mappa muscolare degli esercizi" onerror="this.parentElement.remove()"></figure>
+      </div>
+
+      <ul class="facts">
+        <li lang="it"><b>Dati protetti</b><span>Le note sanitarie degli atleti sono cifrate in un database SQLite locale.</span></li>
+        <li lang="it"><b>Pronta a crescere</b><span>La logica è separata da Electron, così una versione mobile riusa lo stesso codice.</span></li>
+        <li lang="it"><b>Verificata a ogni modifica</b><span>CI con controlli TypeScript, test unitari ed end-to-end e scansione dei segreti.</span></li>
+        <li lang="en"><b>Protected data</b><span>Athletes' health notes are encrypted in a local SQLite database.</span></li>
+        <li lang="en"><b>Ready to grow</b><span>Logic is decoupled from Electron, so a mobile version can reuse the same code.</span></li>
+        <li lang="en"><b>Checked on every change</b><span>CI with TypeScript checks, unit and end-to-end tests and secret scanning.</span></li>
+      </ul>
+      <p class="stack">Electron, React, TypeScript, SQLite, GitHub Actions</p>
+    </div>
+  </div>
+</section>
+
+<section id="competenze">
+  <div class="sec-head">
+    <div>
+      <h2><span lang="it">Competenze</span><span lang="en">Skills</span></h2>
+    </div>
+    <div>
+      <div class="skills">
+        <div>
+          <h3>Back-end</h3>
+          <p>Python, FastAPI, Pydantic, SQLAlchemy, Java, Spring Boot, Hibernate, REST, SSE</p>
+        </div>
+        <div>
+          <h3>Front-end</h3>
+          <p>Vue.js, React, TypeScript, Angular, Electron, Figma</p>
+        </div>
+        <div>
+          <h3 lang="it">Dati e qualità</h3>
+          <h3 lang="en">Data and quality</h3>
+          <p>PostgreSQL, Oracle, MySQL, Docker, GitLab CI, GitHub Actions, Keycloak, Mypy, Ruff</p>
+        </div>
+      </div>
+      <ul class="certs">
+        <li><div>Microsoft Azure AI Fundamentals (AI-901)</div><span class="pending" lang="it">In preparazione</span><span class="pending" lang="en">In progress</span></li>
+        <li><div>Machine Learning Specialization, DeepLearning.AI / Stanford</div><span>2026</span></li>
+        <li><div>Registered Scrum Basics, Scrum Inc.</div><span>2024</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contatti" class="contact">
+  <h2 lang="it">Scrivimi</h2>
+  <h2 lang="en">Get in touch</h2>
+  <p lang="it">Per collaborazioni, progetti o per confrontarci su microservizi e AI applicata.</p>
+  <p lang="en">For collaborations, projects or a chat about microservices and applied AI.</p>
+  <div class="actions">
+    <a class="btn solid" href="mailto:filippomugnai2@icloud.com">filippomugnai2@icloud.com</a>
+    <a class="btn line" href="https://www.linkedin.com/in/filippo-mugnai" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</section>
+</main>
+
+<footer>Filippo Mugnai, Roma, 2026</footer>
+</div>
+
+<script>
+  document.documentElement.classList.add('js');
+  // language
+  const root = document.documentElement, sw = document.getElementById('switch');
+  function setLang(l){
+    root.classList.toggle('lang-it', l==='it'); root.classList.toggle('lang-en', l==='en');
+    root.lang = l; sw.textContent = l==='it' ? 'EN' : 'IT';
+    try{ localStorage.setItem('lang', l); }catch(e){}
+  }
+  let start = 'it';
+  try{ start = localStorage.getItem('lang') || ((navigator.language||'').startsWith('it') ? 'it' : 'en'); }catch(e){}
+  setLang(start);
+  sw.addEventListener('click', () => setLang(root.classList.contains('lang-it') ? 'en' : 'it'));
+
+  // job log: one orchestrated reveal on load
+  const lines = [...document.querySelectorAll('#log li')], bar = document.getElementById('bar');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){ lines.forEach(l=>l.classList.add('on')); bar.style.width='100%'; }
+  else {
+    lines.forEach((l,i)=>setTimeout(()=>{ l.classList.add('on'); bar.style.width = Math.round((i+1)/lines.length*100)+'%'; }, 400 + i*520));
+  }
+</script>
+</body>
+</html>
